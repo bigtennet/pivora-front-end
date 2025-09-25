@@ -1,0 +1,55 @@
+{
+  "name": "Pivora Trading",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js",
+    "dev": "nodemon index.js",
+    "docs": "node start_with_docs.js",
+    "test-swagger": "node test_swagger.js",
+    "test-cloudinary": "node test_cloudinary.js",
+    "test-trading": "node test_trading.js",
+    "setup-balance": "node setup_test_balance.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Myles181/Pivora Trading.git"
+  },
+  "keywords": [],
+  "author": "Myles181",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Myles181/Pivora Trading/issues"
+  },
+  "homepage": "https://github.com/Myles181/Pivora Trading#readme",
+  "dependencies": {
+    "axios": "^1.9.0",
+    "bcrypt": "^6.0.0",
+    "cloudinary": "^2.7.0",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.18.2",
+    "express-fileupload": "^1.5.1",
+    "express-session": "^1.18.1",
+    "express-validator": "^7.2.1",
+    "handlebars": "^4.7.8",
+    "helmet": "^8.1.0",
+    "http": "^0.0.1-security",
+    "https": "^1.0.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.15.2",
+    "morgan": "^1.10.0",
+    "node-cron": "^4.1.0",
+    "nodemailer": "^7.0.3",
+    "nodemon": "^3.1.10",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1",
+    "twilio": "^5.7.1",
+    "uuid": "^11.1.0",
+    "xss-clean": "^0.1.4"
+  }
+}

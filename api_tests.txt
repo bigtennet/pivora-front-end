@@ -1,0 +1,222 @@
+# Pivora Trading API Endpoint Testing Commands
+# Copy and paste these commands to test your endpoints
+
+# ============================================================================
+# 1. AUTHENTICATION ENDPOINTS
+# ============================================================================
+
+# 1.1 User Registration
+curl -X POST http://localhost:5000/api/auth/signup \
+  -H "Content-Type: application/json" \
+  -d '{
+    "fullName": "John Doe",
+    "email": "john@example.com",
+    "password": "password123"
+  }'
+
+# 1.2 User Login
+curl -X POST http://localhost:5000/api/auth/login \
+  -H "Content-Type: application/json" \
+  -d '{
+    "email": "john@example.com",
+    "password": "password123"
+  }'
+
+# 1.3 Forgot Password
+curl -X POST http://localhost:5000/api/auth/forgot-password \
+  -H "Content-Type: application/json" \
+  -d '{
+    "email": "john@example.com"
+  }'
+
+# 1.4 Reset Password
+curl -X POST http://localhost:5000/api/auth/reset-password \
+  -H "Content-Type: application/json" \
+  -d '{
+    "email": "john@example.com",
+    "otp": "123456",
+    "newPassword": "newpassword123"
+  }'
+
+# 1.5 Send Email Verification OTP
+curl -X GET http://localhost:5000/api/auth/verify-email \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN"
+
+# 1.6 Verify Email with OTP
+curl -X POST http://localhost:5000/api/auth/verify-email \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "otp": "123456"
+  }'
+
+# ============================================================================
+# 2. USER ENDPOINTS (Require Authentication)
+# ============================================================================
+
+# 2.1 Get User Balances
+curl -X GET http://localhost:5000/api/user/balances \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN"
+
+# 2.2 Get Deposit Addresses
+curl -X GET http://localhost:5000/api/user/deposit-addresses \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN"
+
+# 2.3 Get Withdrawal Addresses
+curl -X GET http://localhost:5000/api/user/withdrawal-addresses \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN"
+
+# 2.4 Get Platform Charges
+curl -X GET http://localhost:5000/api/user/charges \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN"
+
+# 2.5 Get Transaction History
+curl -X GET http://localhost:5000/api/user/transactions \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN"
+
+# 2.6 Create Deposit Request (with file upload)
+curl -X POST http://localhost:5000/api/user/deposit \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -F "user=USER_ID" \
+  -F "currency=BTC" \
+  -F "network=Bitcoin" \
+  -F "amount=0.001" \
+  -F "screenshot=@/path/to/screenshot.jpg"
+
+# 2.7 Create Withdrawal Request
+curl -X POST http://localhost:5000/api/user/withdraw \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "user": "USER_ID",
+    "currency": "BTC",
+    "network": "Bitcoin",
+    "withdrawalAddress": "bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh",
+    "amount": 0.001
+  }'
+
+# ============================================================================
+# 3. ADMIN ENDPOINTS (Require Admin Authentication)
+# ============================================================================
+
+# 3.1 Get All Deposit Requests
+curl -X GET http://localhost:5000/api/admin/deposits \
+  -H "Authorization: Bearer ADMIN_JWT_TOKEN"
+
+# 3.2 Get Deposit Requests with Filters
+curl -X GET "http://localhost:5000/api/admin/deposits?status=pending&currency=BTC&network=Bitcoin" \
+  -H "Authorization: Bearer ADMIN_JWT_TOKEN"
+
+# 3.3 Update Deposit Request Status
+curl -X PUT http://localhost:5000/api/admin/deposits/DEPOSIT_ID/status \
+  -H "Authorization: Bearer ADMIN_JWT_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "status": "completed"
+  }'
+
+# 3.4 Get All Withdrawal Requests
+curl -X GET http://localhost:5000/api/admin/withdrawals \
+  -H "Authorization: Bearer ADMIN_JWT_TOKEN"
+
+# 3.5 Get Withdrawal Requests with Filters
+curl -X GET "http://localhost:5000/api/admin/withdrawals?status=pending&currency=ETH&network=Ethereum" \
+  -H "Authorization: Bearer ADMIN_JWT_TOKEN"
+
+# 3.6 Update Withdrawal Request Status
+curl -X PUT http://localhost:5000/api/admin/withdrawals/WITHDRAWAL_ID/status \
+  -H "Authorization: Bearer ADMIN_JWT_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "status": "completed"
+  }'
+
+# 3.7 Get Transaction History (Admin)
+curl -X GET http://localhost:5000/api/admin/transactions \
+  -H "Authorization: Bearer ADMIN_JWT_TOKEN"
+
+# 3.8 Get Transaction History with Filters
+curl -X GET "http://localhost:5000/api/admin/transactions?type=deposit&status=completed&currency=BTC" \
+  -H "Authorization: Bearer ADMIN_JWT_TOKEN"
+
+# 3.9 Get Total Platform Balance
+curl -X GET http://localhost:5000/api/admin/balance \
+  -H "Authorization: Bearer ADMIN_JWT_TOKEN"
+
+# 3.10 Get All Users
+curl -X GET http://localhost:5000/api/admin/users \
+  -H "Authorization: Bearer ADMIN_JWT_TOKEN"
+
+# 3.11 Get Users with Email Filter
+curl -X GET "http://localhost:5000/api/admin/users?email=john" \
+  -H "Authorization: Bearer ADMIN_JWT_TOKEN"
+
+# 3.12 Get Admin Deposit Addresses
+curl -X GET http://localhost:5000/api/admin/deposit-addresses \
+  -H "Authorization: Bearer ADMIN_JWT_TOKEN"
+
+# 3.13 Get Admin Withdrawal Addresses
+curl -X GET http://localhost:5000/api/admin/withdrawal-addresses \
+  -H "Authorization: Bearer ADMIN_JWT_TOKEN"
+
+# 3.14 Add/Update Address
+curl -X POST http://localhost:5000/api/admin/addresses \
+  -H "Authorization: Bearer ADMIN_JWT_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "network": "Bitcoin",
+    "currency": "BTC",
+    "address": "bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh",
+    "type": "deposit"
+  }'
+
+# 3.15 Get Admin Charges
+curl -X GET http://localhost:5000/api/admin/charges \
+  -H "Authorization: Bearer ADMIN_JWT_TOKEN"
+
+# 3.16 Add/Update Charge
+curl -X POST http://localhost:5000/api/admin/charges \
+  -H "Authorization: Bearer ADMIN_JWT_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "type": "withdraw",
+    "chargePercentage": 2.5
+  }'
+
+# ============================================================================
+# 4. BASE ENDPOINT
+# ============================================================================
+
+# 4.1 API Status
+curl -X GET http://localhost:5000/
+
+# ============================================================================
+# 5. TESTING NOTES
+# ============================================================================
+
+# Important Notes:
+# 1. Replace placeholders:
+#    - YOUR_JWT_TOKEN: Use the token from login response
+#    - ADMIN_JWT_TOKEN: Use admin user's token
+#    - USER_ID: Use actual user ID from database
+#    - DEPOSIT_ID: Use actual deposit request ID
+#    - WITHDRAWAL_ID: Use actual withdrawal request ID
+#    - /path/to/screenshot.jpg: Use actual file path
+#
+# 2. Admin Access Setup:
+#    - Set ADMIN_EMAIL in .env file
+#    - Or add isAdmin: true to user document in database
+#
+# 3. Testing Order:
+#    - Start with authentication endpoints
+#    - Get tokens from login responses
+#    - Use tokens for protected endpoints
+#    - Test admin endpoints with admin user
+#
+# 4. File Upload:
+#    - For deposit requests, ensure file exists at specified path
+#    - Supported formats: JPEG, PNG, WebP
+#
+# 5. Database Setup:
+#    - Ensure MongoDB is running
+#    - Create necessary collections and indexes 
