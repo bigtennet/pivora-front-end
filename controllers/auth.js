@@ -174,7 +174,7 @@ const loginUser = async (req, res) => {
                     isAdmin: user.isAdmin || false,
                     isSuperAdmin: user.isSuperAdmin || false
                 },
-                adminToken
+                token:adminToken
             });
         }
 
