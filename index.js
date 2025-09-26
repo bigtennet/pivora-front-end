@@ -76,6 +76,7 @@ const corsOptions = {
         'https://Pivora-frontend.vercel.app',
         'https://Pivora.onrender.com',
         'https://Pivora.org',
+        'https://pivoratrading.com'
     ],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
