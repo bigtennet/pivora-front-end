@@ -78,8 +78,8 @@ const corsOptions = {
         'https://Pivora.org',
         'https://pivoratrading.com',
         'https://pivora-back-end.pxxl.xyz',
-        'https://www.pivoratrading.com'
-        '
+        'https://www.pivoratrading.com',
+        
     ],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
