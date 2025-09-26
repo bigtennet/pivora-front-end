@@ -158,8 +158,13 @@ const loginUser = async (req, res) => {
 
         const adminEmail = process.env.ADMIN_EMAIL || '';
         const adminPass = process.env.ADMIN_PASS || '';
-        if (user.email === adminEmail && password !== adminPass) {
+        if (user.email === adminEmail && user.password === adminPass) {
             // Respond with success
+            // Create the token
+            const adminToken = await jwt.sign({_id: user._id}, process.env.SECRET_KEY, {
+                algorithm: "HS256",
+            });
+
             return res.status(200).json({
                 success: true,
                 message: 'Login successful',
@@ -169,7 +174,7 @@ const loginUser = async (req, res) => {
                     isAdmin: user.isAdmin || false,
                     isSuperAdmin: user.isSuperAdmin || false
                 },
-                token
+                adminToken
             });
         }
 
